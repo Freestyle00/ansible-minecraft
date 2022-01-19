@@ -1,0 +1,6 @@
+#!/usr/bin/ansible-playbook
+---
+- name: Start minecraft docker
+  hosts: "all"
+  roles:
+    - { role: minecraft_docker }

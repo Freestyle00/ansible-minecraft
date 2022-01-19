@@ -1,0 +1,37 @@
+---
+- name: ensure docker is installed
+  dnf:
+    name:
+    - "docker"
+    state: latest
+    enabled: yes
+
+- name: copy the minecraft the docker image too the server
+  copy:
+    src: files/minecraft_docker_image.dockerfile
+    dest: /
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy server.jar to the server
+  ansible.builtin.copy:
+    src: files/server.jar
+    dest: /
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Start the minecraft docker container
+  docker:
+    name: "minecraft"
+    image: /minecraft_docker_image.dockerfile
+    state: started
+    ports:
+      - "25565:25565"
+
+- name: expose ports to outside
+  shell:
+    - "firewall-cmd --permanent --zone=public --add-port=25565/tcp"
+    - "firewall-cmd --permanent --zone=public --add-port=25565/udp"
+    - "firewall-cmd --reload"
