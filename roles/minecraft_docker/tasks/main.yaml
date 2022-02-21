@@ -30,7 +30,7 @@
     ports:
       - "25565:25565"
 
-- name: expose ports to outside
+- name: expose ports to outside #TODO: Cange this from shell to an ansible module
   shell:
     - "firewall-cmd --permanent --zone=public --add-port=25565/tcp"
     - "firewall-cmd --permanent --zone=public --add-port=25565/udp"
