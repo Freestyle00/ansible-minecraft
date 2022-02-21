@@ -1,6 +1,6 @@
 all:
     hosts:
-        nickr-1.azubi.denic.de:
-            ansible_host: 157.90.250.3
+        _your_servername_:
+            ansible_host: 
     vars:
         ansible_user: root
